@@ -2,7 +2,7 @@
 //  GameScene.swift
 //  FlappyBirdSwift
 //
-//  Created by Rafal Szymanski on 7/3/14.
+//  Created by Rafal Szymanski on 7/12/14.
 //  Copyright (c) 2014 rafalio. All rights reserved.
 //
 
@@ -12,7 +12,7 @@ let playerCategory:UInt32 = 1
 let groundCategory:UInt32 = 2
 let pipeCategory:UInt32   = 4
 
-let pipeVSpacing:CGFloat = 130
+let pipeVSpacing:CGFloat = 120
 let pipeHSpacing:CGFloat = 150
 let pipeWidth:CGFloat    = 30
 
@@ -24,17 +24,19 @@ enum GameState{
 
 class GameScene: SKScene, SKPhysicsContactDelegate {
     var player:SKNode!
-    var score:Int = 0
+    var score:Int = 0 {
+        didSet{
+            scoreLabel.text = "\(score)"
+        }
+    }
     var gameOverLabel:SKLabelNode!
     var scoreLabel:SKLabelNode!
     var pipeAccum:Array<SKNode> = []
-    
     
     var appState:GameState = .Waiting{
         didSet{
             if(appState == .Waiting){
                 gameOverLabel.removeFromParent()
-                scoreLabel.removeFromParent()
                 resetLevel()
                 self.paused = true
             }
@@ -43,10 +45,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 spawnPipes()
             }
             else if(appState == .DeathScreen){
-                // nothing
                 self.addChild(gameOverLabel)
-                scoreLabel.text = "\(score)"
-                self.addChild(scoreLabel)
                 self.paused = true
             }
         }
@@ -58,6 +57,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         self.backgroundColor = UIColor.whiteColor()
         self.paused = true // pause the scene
         self.physicsWorld.contactDelegate = self
+        setUpLabels()
         
         let pSize:CGFloat = 20
         player = SKSpriteNode(color:UIColor.blackColor(), size:CGSizeMake(pSize, pSize))
@@ -87,8 +87,8 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         ground.physicsBody.affectedByGravity = false
         self.addChild(ground)
         
-        setUpLabels()
         
+        self.addChild(scoreLabel)
     }
     
     func spawnPipes(){
@@ -104,7 +104,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             let sucDist:Double  = 130 // distance between succesive pipes
             let waitTime:Double = sucDist/velocity
             
-            let animAction = SKAction.moveBy(CGVectorMake(-(view.frame.width+100), 0), duration: time)
+            let animAction = SKAction.sequence([
+                SKAction.moveToX(player.position.x, duration: (pipes.position.x-player.position.x)/velocity),
+                SKAction.runBlock({ () in self.score++; println(pipes.position); return () }),
+                SKAction.moveToX(-pipeWidth, duration: (player.position.x+pipeWidth)/velocity)
+                ])
             let doneAction = SKAction.sequence([SKAction.removeFromParent(), SKAction.runBlock({() in
                 self.pipeAccum.removeAtIndex(0) // inefficient, ideally this should be a queue, but... well swift doesn't have one
                 return ()
@@ -149,6 +153,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             p.removeFromParent()
         }
         pipeAccum.removeAll(keepCapacity: true)
+        score = 0
     }
     
     func setUpLabels(){
@@ -162,10 +167,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         scoreLabel.fontSize = 25
         scoreLabel.position = CGPointMake(view.frame.width/2,view.frame.height/2-30)
         scoreLabel.fontColor = UIColor.blackColor()
-    }
-    
-    override func update(currentTime: CFTimeInterval) {
-        /* Called before each frame is rendered */
+        
     }
     
     // returns an SKNode with the top and bottom pipe
@@ -199,6 +201,10 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         node.addChild(bottomPiece)
         
         return node
+    }
+    
+    override func update(currentTime: CFTimeInterval) {
+        /* Called before each frame is rendered */
     }
     
     
