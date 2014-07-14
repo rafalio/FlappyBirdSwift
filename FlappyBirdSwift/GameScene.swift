@@ -106,7 +106,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
             
             let animAction = SKAction.sequence([
                 SKAction.moveToX(player.position.x, duration: (pipes.position.x-player.position.x)/velocity),
-                SKAction.runBlock({ () in self.score++; println(pipes.position); return () }),
+                SKAction.runBlock({ () in self.score++; return () }),
                 SKAction.moveToX(-pipeWidth, duration: (player.position.x+pipeWidth)/velocity)
                 ])
             let doneAction = SKAction.sequence([SKAction.removeFromParent(), SKAction.runBlock({() in
