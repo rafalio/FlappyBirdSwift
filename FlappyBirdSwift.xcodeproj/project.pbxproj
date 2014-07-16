@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		B57813501976C50C00340437 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = B578134F1976C50C00340437 /* GameScene.sks */; };
 		B5BEB4A5197140B200DDCEC7 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BEB4A4197140B200DDCEC7 /* AppDelegate.swift */; };
 		B5BEB4A9197140B200DDCEC7 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BEB4A8197140B200DDCEC7 /* GameScene.swift */; };
 		B5BEB4AB197140B200DDCEC7 /* GameViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5BEB4AA197140B200DDCEC7 /* GameViewController.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		B578134F1976C50C00340437 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
 		B5BEB49F197140B200DDCEC7 /* FlappyBirdSwift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FlappyBirdSwift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B5BEB4A3197140B200DDCEC7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5BEB4A4197140B200DDCEC7 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -77,6 +79,7 @@
 		B5BEB4A1197140B200DDCEC7 /* FlappyBirdSwift */ = {
 			isa = PBXGroup;
 			children = (
+				B578134F1976C50C00340437 /* GameScene.sks */,
 				B5BEB4A4197140B200DDCEC7 /* AppDelegate.swift */,
 				B5BEB4A8197140B200DDCEC7 /* GameScene.swift */,
 				B5BEB4AA197140B200DDCEC7 /* GameViewController.swift */,
@@ -193,6 +196,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B5BEB4B0197140B200DDCEC7 /* Images.xcassets in Resources */,
+				B57813501976C50C00340437 /* GameScene.sks in Resources */,
 				B5BEB4AE197140B200DDCEC7 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -401,6 +405,7 @@
 				B5BEB4C1197140B200DDCEC7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		B5BEB4C2197140B200DDCEC7 /* Build configuration list for PBXNativeTarget "FlappyBirdSwiftTests" */ = {
 			isa = XCConfigurationList;
@@ -409,6 +414,7 @@
 				B5BEB4C4197140B200DDCEC7 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
